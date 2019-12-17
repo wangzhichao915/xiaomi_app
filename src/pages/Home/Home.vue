@@ -4,6 +4,7 @@
             <div class="left"></div>
             <input type="text">
             <van-icon name="search" slot="right" />
+            <p>哈哈</p>
         </header>
     </div>
 </template>
