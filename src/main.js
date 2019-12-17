@@ -12,6 +12,7 @@ Vue.use(Vant);
 import './assets/css/reset.css'
 import './assets/js/rem.js'
 
+
 Vue.config.productionTip = false
 
 import Router from 'vue-router'
