@@ -2,7 +2,7 @@
   <div id="app">
     
     <router-view/>
-    <tabbar></tabbar>
+    <tabbar v-show="this.$route.meta.isShow"></tabbar>
   </div>
 </template>
 

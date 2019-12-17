@@ -11,19 +11,28 @@ export default new Router({
     },
     {
       path:'/home',
-      component:()=>import('@/pages/Home/Home')
+      component:()=>import('@/pages/Home/Home'),
+      meta:{isShow:true}
     },
     {
       path:'/classify',
-      component:()=>import('@/pages/Classify/Classify')
+      component:()=>import('@/pages/Classify/Classify'),
+      meta:{isShow:true}
     },
     {
       path:'/shopp',
-      component:()=>import('@/pages/Shopp/Shopp')
+      component:()=>import('@/pages/Shopp/Shopp'),
+      meta:{isShow:true}
     },
     {
       path:'/mine',
-      component:()=>import('@/pages/Mine/Mine')
+      component:()=>import('@/pages/Mine/Mine'),
+      meta:{isShow:true}
+    },
+    {
+      path:'/detail',
+      component:()=>import('@/components/Detail'),
+      meta:{isShow:false}
     },
   ]
 })
