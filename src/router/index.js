@@ -7,7 +7,8 @@ export default new Router({
   routes: [
     {
       path:'/',
-      component:()=>import('@/pages/Home/Home')
+      component:()=>import('@/pages/Home/Home'),
+      meta:{}
     },
     {
       path:'/home',

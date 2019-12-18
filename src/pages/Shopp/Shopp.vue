@@ -4,10 +4,11 @@
         <div class="title">
             <h2>登录后享受更多优惠<span>去登录 ></span></h2>
         </div>
-        <div class="content">
+        <div class="content" v-show="!flag">
             <h2><b>购物车还是空的</b><span>去逛逛</span></h2>
         </div>
         <van-card
+        v-show="flag"
                 desc="￥7999"
                 title="小米8 屏幕指纹版"
                 thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
@@ -31,6 +32,13 @@
                 </li>
             </ul>
         </div>
+        <footer class="footer" v-show="flag">
+            <p>共4件 金额:<br/><b>31996</b>元</p>
+            <div class="commit">
+                <div class="button1">继续购物</div>
+                <div class="button2">去结算</div>
+            </div>
+        </footer>
     </div>
 </template>
 <script>
@@ -38,13 +46,15 @@ import Top from '../../components/Top'
 export default {
     data(){
         return{
-            listArr:[]
+            listArr:[],
+            flag:false
         }
     },
     mounted(){
         this.$axios.get("https://shiyaming1994.github.io/mi/static/homeGoods.json?page=1").then(res=>{
             this.listArr=res.data
         })
+        // this.flag=true
     },
     components:{
         Top
@@ -165,7 +175,49 @@ export default {
         }
 
     }
-
+    .footer{
+        width: 100%;
+        height: 1rem;
+        background: #f7f7f7;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        // align-items: center;
+        p{
+            width: 35%;
+            margin-top: 0.1rem;
+            font-size: 0.24rem;
+            color: #999;
+            line-height: 0.4rem;
+            margin-left: 0.4rem;
+            b{
+                font-size: 0.32rem;
+                color: #FF5722;
+                margin-right: 0.1rem;
+            }
+        }
+        .commit{
+            width: 65%;
+            box-sizing: border-box;
+            display: flex;
+            font-size: 0.26rem;
+            line-height: 1rem;
+            text-align: center;
+            .button1{
+                width: 50%;
+                color: #333;
+                background: #f5f5f5;
+            }
+            .button2{
+                width: 50%;
+                background: #FF5722;
+                color: #fff;
+            }
+        }
+    }
     .van-tag{
         font-size: 18px;
     }
