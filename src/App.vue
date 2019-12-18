@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    
     <router-view/>
     <tabbar v-show="this.$route.meta.isShow"></tabbar>
   </div>

@@ -37,7 +37,7 @@
     <van-goods-action>
       <van-goods-action-icon icon="wap-home-o" text="首页" @click="goHome" />
       <van-goods-action-icon icon="cart-o" text="购物车" />
-      <van-goods-action-button type="warning" text="加入购物车"/>
+      <van-goods-action-button type="warning" text="加入购物车" @click="flag=true"/>
     </van-goods-action>
 
       <div class="detailbox" v-show="flag">
@@ -72,7 +72,7 @@
          <p>购买数量</p>
          <van-stepper v-model="value" />
        </div>
-       <van-button round type="warning" size="large">加入购物车</van-button>
+       <van-button round type="warning" size="large" @click="shopp">加入购物车</van-button>
       </div>
       </div>
       
@@ -87,7 +87,8 @@ export default {
       value: 1,
       editionObj:{},
       seen:0,
-      seen1:0
+      seen1:0,
+      arr:JSON.parse(localStorage.getItem("obj")) || []
     };
   },
   mounted() {
@@ -95,6 +96,20 @@ export default {
     this.editionObj=this.detailObj.edition[0]
   },
   methods: {
+    //提交购物车
+    shopp(){
+      var shoppArr={}
+      shoppArr.name=this.detailObj.name
+      shoppArr.price=this.detailObj.edition[this.seen].edition_price
+      shoppArr.type=this.detailObj.edition[this.seen].Memory
+      shoppArr.img=this.detailObj.edition[this.seen].color[this.seen1].img
+      shoppArr.color=this.detailObj.edition[this.seen].color[this.seen1].color_list
+      shoppArr.num=this.value
+      this.arr.push(shoppArr)
+      localStorage.setItem("obj",JSON.stringify(this.arr))
+      // this.$router.push("/shopp")
+      console.log(this.arr)
+    },
     getData() {
       this.detailObj = this.$route.query.data;
     },

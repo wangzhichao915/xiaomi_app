@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="top">
         <van-nav-bar
             :title="text"
             left-text="返回"
