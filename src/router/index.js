@@ -34,5 +34,13 @@ export default new Router({
       component:()=>import('@/components/Detail'),
       meta:{isShow:false}
     },
+    {
+      path:"/address",
+      component:()=>import('@/pages/Mine/Address')
+    },
+    {
+      path:"/newAddress",
+      component:()=>import('@/pages/Mine/NewAddress')
+    }
   ]
 })

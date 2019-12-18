@@ -40,6 +40,6 @@ export default {
 .van-tabbar{
     width: 100%;
     height: 1rem;
-    background: #f7f7f7;
+    background: #fff;
 }
 </style>

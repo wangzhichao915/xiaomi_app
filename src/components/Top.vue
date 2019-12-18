@@ -14,7 +14,7 @@ export default {
     props:["text"],
      methods: {
         onClickLeft() {
-        Toast('返回');
+            history.back()
         }
     }
 }

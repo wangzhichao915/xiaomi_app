@@ -79,7 +79,6 @@
   </div>
 </template>
 <script>
- import skuData from '../assets/js/data'
 export default {
   data() {
     return {

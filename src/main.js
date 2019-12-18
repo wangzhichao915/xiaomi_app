@@ -12,6 +12,14 @@ Vue.use(Vant);
 import './assets/css/reset.css'
 import './assets/js/rem.js'
 
+import { AddressEdit } from 'vant';
+
+Vue.use(AddressEdit);
+import { Area } from 'vant';
+
+Vue.use(Area);
+
+
 Vue.config.productionTip = false
 
 import Router from 'vue-router'
