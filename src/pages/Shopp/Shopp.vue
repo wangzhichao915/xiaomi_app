@@ -16,7 +16,7 @@
                 >
             <div slot="tags" class="slot">
                 <van-stepper v-model="item.num" />
-              <van-icon name="delete" />
+              <van-icon name="delete" @click="del(index)" />
             </div>
         </van-card>
         <div class="guessLike">
@@ -54,7 +54,7 @@ export default {
         this.$axios.get("https://shiyaming1994.github.io/mi/static/homeGoods.json?page=1").then(res=>{
             this.listArr=res.data
         })
-        this.shoppArr=JSON.parse(localStorage.getItem("obj"))
+        this.shoppArr=JSON.parse(localStorage.getItem("key"))
         if(this.shoppArr.length!=0){
             this.flag=true
         }else{
@@ -75,6 +75,13 @@ export default {
             return this.shoppArr.reduce((pre,next)=>{
                 return pre+next.num
             },0)
+        }
+    },
+    methods:{
+        del(i){
+            this.shoppArr.splice(i,1)
+            localStorage.setItem("key", JSON.stringify(this.shoppArr));
+
         }
     }
 }

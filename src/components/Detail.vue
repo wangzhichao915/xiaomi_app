@@ -36,15 +36,14 @@
     </div>
     <van-goods-action>
       <van-goods-action-icon icon="wap-home-o" text="首页" @click="goHome" />
-      <van-goods-action-icon icon="cart-o" text="购物车" />
-      <van-goods-action-button type="warning" text="加入购物车" @click="flag=true"/>
+      <van-goods-action-icon icon="cart-o" text="购物车" @click='goShopp'/>
+      <van-goods-action-button type="warning" text="加入购物车" @click="flag=true" />
     </van-goods-action>
-
-      <div class="detailbox" v-show="flag">
-        <div class="detaillist">
+    <div class="detailbox" v-show="flag">
+      <div class="detaillist">
         <van-icon size="0.3rem" name="cross" @click="flag = false" />
         <div class="msg">
-          <img :src="detailObj.edition[seen].color[seen1].img" alt="">
+          <img :src="detailObj.edition[seen].color[seen1].img" alt />
           <div class="right">
             <p>￥{{detailObj.edition[seen].edition_price}}</p>
             <ul>
@@ -53,11 +52,15 @@
               <li>{{detailObj.edition[seen].color[seen1].color_list}}</li>
             </ul>
           </div>
-          
         </div>
         <div class="edition">
           <header>版本</header>
-          <ul v-for="(item,i) in detailObj.edition" :key="i" @click="selectEdition(i)" :class="{active:seen == i}">
+          <ul
+            v-for="(item,i) in detailObj.edition"
+            :key="i"
+            @click="selectEdition(i)"
+            :class="{active:seen == i}"
+          >
             <li>{{item.Memory}}</li>
             <li>{{item.edition_price}}</li>
           </ul>
@@ -65,17 +68,21 @@
         <div class="color">
           <header>颜色</header>
           <ul>
-            <li @click="selectColor(i)" v-for="(item,i) in editionObj.color" :key="i" :class="{active1:seen1 == i}">{{item.color_list}}</li>
+            <li
+              @click="selectColor(i)"
+              v-for="(item,i) in editionObj.color"
+              :key="i"
+              :class="{active1:seen1 == i}"
+            >{{item.color_list}}</li>
           </ul>
         </div>
-       <div class="num">
-         <p>购买数量</p>
-         <van-stepper v-model="value" />
-       </div>
-       <van-button round type="warning" size="large" @click="shopp">加入购物车</van-button>
+        <div class="num">
+          <p>购买数量</p>
+          <van-stepper v-model="value" />
+        </div>
+        <van-button round type="warning" size="large" @click="shopp">加入购物车</van-button>
       </div>
-      </div>
-      
+    </div>
   </div>
 </template>
 <script>
@@ -83,32 +90,34 @@ export default {
   data() {
     return {
       detailObj: {},
-      flag:false,
+      flag: false,
       value: 1,
-      editionObj:{},
-      seen:0,
-      seen1:0,
-      arr:JSON.parse(localStorage.getItem("obj")) || []
+      editionObj: {},
+      seen: 0,
+      seen1: 0,
+      arr: JSON.parse(localStorage.getItem("key")) || []
     };
   },
   mounted() {
     this.getData();
-    this.editionObj=this.detailObj.edition[0]
+    this.editionObj = this.detailObj.edition[0];
   },
   methods: {
     //提交购物车
-    shopp(){
-      var shoppArr={}
-      shoppArr.name=this.detailObj.name
-      shoppArr.price=this.detailObj.edition[this.seen].edition_price
-      shoppArr.type=this.detailObj.edition[this.seen].Memory
-      shoppArr.img=this.detailObj.edition[this.seen].color[this.seen1].img
-      shoppArr.color=this.detailObj.edition[this.seen].color[this.seen1].color_list
-      shoppArr.num=this.value
-      this.arr.push(shoppArr)
-      localStorage.setItem("obj",JSON.stringify(this.arr))
+    shopp() {
+      var shoppArr = {};
+      shoppArr.name = this.detailObj.name;
+      shoppArr.price = this.detailObj.edition[this.seen].edition_price;
+      shoppArr.type = this.detailObj.edition[this.seen].Memory;
+      shoppArr.img = this.detailObj.edition[this.seen].color[this.seen1].img;
+      shoppArr.color = this.detailObj.edition[this.seen].color[
+        this.seen1
+      ].color_list;
+      shoppArr.num = this.value;
+      this.arr.push(shoppArr);
+      localStorage.setItem("key", JSON.stringify(this.arr));
       // this.$router.push("/shopp")
-      console.log(this.arr)
+      console.log(this.arr);
     },
     getData() {
       this.detailObj = this.$route.query.data;
@@ -119,35 +128,37 @@ export default {
     goHome() {
       this.$router.push("/home");
     },
-    selectEdition(i){
-      this.editionObj=this.detailObj.edition[i]
-      this.seen = i
+    goShopp(){
+      this.$router.push('/shopp')
     },
-    selectColor(i){
-      this.seen1 = i
+    selectEdition(i) {
+      this.editionObj = this.detailObj.edition[i];
+      this.seen = i;
+    },
+    selectColor(i) {
+      this.seen1 = i;
     }
   }
 };
 </script>
 <style lang="less" scoped>
-.active{
-  border:0.02rem solid #F56600 !important;
-  color: #F56600 !important;
+.active {
+  border: 0.02rem solid #f56600 !important;
+  color: #f56600 !important;
 }
-.active1{
-  border:0.02rem solid #F56600 !important;
-  color: #F56600 !important;
+.active1 {
+  border: 0.02rem solid #f56600 !important;
+  color: #f56600 !important;
 }
-.detailbox{
+.detailbox {
   width: 100%;
   height: 100%;
   position: fixed;
   left: 0;
   top: 0;
-  background:rgba(0, 0, 0, 0.65);
-  
+  background: rgba(0, 0, 0, 0.65);
 }
-.detaillist{
+.detaillist {
   width: 100%;
   background: #fff;
   position: absolute;
@@ -156,108 +167,108 @@ export default {
   border-radius: 0.3rem 0.3rem 0 0;
   padding: 0.9rem 0.3rem 0 0.3rem;
   box-sizing: border-box;
-  .van-icon{
+  .van-icon {
     position: absolute;
     right: 0.3rem;
     top: 0.3rem;
   }
-  .msg{
+  .msg {
     width: 100%;
     height: 1.72rem;
     display: flex;
     justify-content: space-between;
-    img{
+    img {
       width: 1.7rem;
       height: 1.7rem;
     }
-    .right{
+    .right {
       width: 4rem;
       height: 100%;
       padding-top: 0.4rem;
-      p{
+      p {
         width: 100%;
         height: 0.55rem;
         font-size: 0.32rem;
         color: #000;
       }
-      ul{
+      ul {
         width: 100%;
-        li{
+        li {
           margin-right: 0.1rem;
           font-size: 0.22rem;
           color: #212121;
           float: left;
         }
-        & li:nth-child(2){
+        & li:nth-child(2) {
           margin-top: 0.05rem;
         }
       }
     }
   }
-  .edition{
+  .edition {
     width: 100%;
     margin-top: 0.5rem;
     margin-bottom: 0.3rem;
-    header{
+    header {
       width: 100%;
       height: 0.45rem;
       font-size: 0.2rem;
       color: #212121;
     }
-    ul{
+    ul {
       width: 100%;
       height: 0.6rem;
       display: flex;
       justify-content: space-between;
       margin-bottom: 0.15rem;
-      border: 0.02rem solid #99999E;
+      border: 0.02rem solid #99999e;
       padding: 0 0.25rem;
       box-sizing: border-box;
-      li{
+      li {
         line-height: 0.6rem;
-        font-size: 0.2rem
+        font-size: 0.2rem;
       }
     }
   }
-  .color{
+  .color {
     width: 100%;
     margin-bottom: 0.6rem;
-    header{
+    header {
       width: 100%;
       height: 0.45rem;
       font-size: 0.2rem;
       color: #212121;
     }
-    ul{
+    ul {
       width: 100%;
       height: 0.6rem;
       padding-left: 0.3rem;
       box-sizing: border-box;
-      li{
+      li {
         width: 1.1rem;
         height: 100%;
         text-align: center;
         line-height: 0.6rem;
-        border: 0.02rem solid #99999E;
+        border: 0.02rem solid #99999e;
         margin-right: 0.2rem;
         font-size: 0.3rem;
-        color: #99999E;
+        color: #99999e;
         float: left;
       }
     }
   }
-  .num{
+  .num {
     width: 100%;
     height: 0.7rem;
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.2rem;
-    p{
+    p {
       line-height: 0.7rem;
       font-size: 0.22rem;
       color: #000;
     }
-    .van-stepper{
+    .van-stepper {
       line-height: 0.7rem;
     }
   }
@@ -368,5 +379,4 @@ export default {
     width: 100%;
   }
 }
-
 </style>

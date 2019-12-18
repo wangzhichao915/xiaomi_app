@@ -14,7 +14,8 @@ export default {
     props:["text"],
      methods: {
         onClickLeft() {
-            history.back()
+            // history.back()
+            this.$router.go(-1)
         }
     }
 }

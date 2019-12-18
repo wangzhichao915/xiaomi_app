@@ -8,7 +8,7 @@ export default new Router({
     {
       path:'/',
       component:()=>import('@/pages/Home/Home'),
-      meta:{}
+      meta:{isShow:true}
     },
     {
       path:'/home',
@@ -37,11 +37,13 @@ export default new Router({
     },
     {
       path:"/address",
-      component:()=>import('@/pages/Mine/Address')
+      component:()=>import('@/pages/Mine/Address'),
+      meta:{isShow:false}
     },
     {
       path:"/newAddress",
-      component:()=>import('@/pages/Mine/NewAddress')
+      component:()=>import('@/pages/Mine/NewAddress'),
+      meta:{isShow:false}
     }
   ]
 })
