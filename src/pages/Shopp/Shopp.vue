@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       listArr: [],
-      shoppArr: [],
+      shoppArr:JSON.parse(localStorage.getItem("key")) || [],
       flag: false,
     };
   },
@@ -69,13 +69,12 @@ export default {
       .then(res => {
         this.listArr = res.data;
       });
-    this.shoppArr = JSON.parse(localStorage.getItem("key"));
+    // this.shoppArr = JSON.parse(localStorage.getItem("key"));
     if (this.shoppArr.length != 0) {
       this.flag = true;
     } else {
       this.flag = false;
     }
-    console.log(this.count)
   },
   components: {
     Top
