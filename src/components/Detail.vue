@@ -102,6 +102,7 @@ export default {
   mounted() {
     this.getData();
     this.editionObj = this.detailObj.edition[0];
+    this.info = localStorage.getItem("info")
   },
   methods: {
     //提交购物车

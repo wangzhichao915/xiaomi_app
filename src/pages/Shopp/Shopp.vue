@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       listArr: [],
-      shoppArr: [],
+      shoppArr:JSON.parse(localStorage.getItem("key")) || [],
       flag: false,
     };
   },
@@ -69,7 +69,7 @@ export default {
       .then(res => {
         this.listArr = res.data;
       });
-    this.shoppArr = JSON.parse(localStorage.getItem("key"));
+    // this.shoppArr = JSON.parse(localStorage.getItem("key"));
     if (this.shoppArr.length != 0) {
       this.flag = true;
     } else {
@@ -96,6 +96,10 @@ export default {
   methods: {
     del(i) {
       this.shoppArr.splice(i, 1);
+      if (this.shoppArr.length == 0) {
+        this.flag = false;
+        localStorage.removeItem("info")
+      } 
       localStorage.setItem("key", JSON.stringify(this.shoppArr));
     },
     goDetail(item) {

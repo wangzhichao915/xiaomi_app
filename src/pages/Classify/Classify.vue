@@ -54,7 +54,8 @@ export default {
         "出行",
         "智能",
         "灯具",
-        "家电"
+        "家电",
+        ""
       ],
       currentIndex: 0, //当前显示的下标
       listHeight: [],

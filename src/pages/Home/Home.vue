@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home">
     <header>
       <div class="left"></div>
       <input type="text" />
@@ -9,7 +9,7 @@
     <div class="swiper">
       <van-swipe :autoplay="1000" indicator-color="white">
         <van-swipe-item v-for="(item,i) in swiperArr" :key="i">
-          <img :src=item.img alt='' />
+          <img :src="item.img" alt />
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -25,7 +25,7 @@
     <section>
       <van-grid :border="false" :column-num="2" :gutter="10">
         <van-grid-item v-for="(item,i) in sectionArr" :key="i" @click="goDetail(item)">
-          <van-image :src=item.img />
+          <van-image :src="item.img" />
           <div class="txt">
             <h3>{{item.name}}</h3>
             <p>{{item.content}}</p>
@@ -42,32 +42,32 @@ export default {
   data() {
     return {
       sectionArr: [],
-      swiperArr:[]
+      swiperArr: []
     };
   },
   mounted() {
     this.sectionData();
-    this.swiperData()
+    this.swiperData();
   },
   methods: {
     sectionData() {
       this.$axios
         .get("https://shiyaming1994.github.io/mi/static/homeGoods.json?page=1")
         .then(res => {
-          console.log(res)
+          console.log(res);
           this.sectionArr = res.data;
         });
     },
-    swiperData(){
-         this.$axios
+    swiperData() {
+      this.$axios
         .get("https://shiyaming1994.github.io/mi/static/rotationChart.json")
         .then(res => {
           this.swiperArr = res.data;
         });
     },
-    goDetail(item){
-        this.$router.push('/detail')
-        localStorage.setItem('obj',JSON.stringify(item))
+    goDetail(item) {
+      this.$router.push("/detail");
+      localStorage.setItem("obj", JSON.stringify(item));
     }
   }
 };
@@ -107,9 +107,9 @@ header {
     top: 0.4rem;
   }
 }
-.marginTop{
-    width: 100%;
-    margin-top: 1.1rem;
+.marginTop {
+  width: 100%;
+  margin-top: 1.1rem;
 }
 .swiper {
   width: 100%;
