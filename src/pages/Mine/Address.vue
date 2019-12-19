@@ -34,13 +34,13 @@ export default {
             ],
             disabledList: [
                 {
-                id: '3',
+                id: '0',
                 name: '王五',
                 tel: '1320000000',
                 address: '浙江省杭州市滨江区江南大道 15 号'
                 }
             ],
-            newList:this.$route.query.addressArr
+            newList:JSON.parse(localStorage.getItem("NewAddress"))
         }
     },
 
@@ -49,12 +49,15 @@ export default {
             this.$router.push("/mine")
         },
         onAdd() {
-            this.$router.push({
-                path:"/newAddress",
-                query:{
-                    newarr:this.list
-                }
-            })
+            // this.$router.push({
+            //     path:"/newAddress",
+            //     query:{
+            //         newarr:this.list
+            //     }
+            // })
+
+            this.$router.push("/newAddress")
+            localStorage.setItem("address",JSON.stringify(this.list))
         },
     },
     mounted(){

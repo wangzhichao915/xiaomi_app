@@ -36,7 +36,7 @@
     </div>
     <van-goods-action>
       <van-goods-action-icon icon="wap-home-o" text="首页" @click="goHome" />
-      <van-goods-action-icon icon="cart-o" text="购物车" @click='goShopp'/>
+      <van-goods-action-icon icon="cart-o" text="购物车" :info="info" @click='goShopp'/>
       <van-goods-action-button type="warning" text="加入购物车" @click="flag=true" />
     </van-goods-action>
     <div class="detailbox" v-show="flag">
@@ -89,6 +89,7 @@
 export default {
   data() {
     return {
+      info:localStorage.getItem("info"),
       detailObj: {},
       flag: false,
       value: 1,
@@ -116,11 +117,11 @@ export default {
       shoppArr.num = this.value;
       this.arr.push(shoppArr);
       localStorage.setItem("key", JSON.stringify(this.arr));
-      // this.$router.push("/shopp")
-      console.log(this.arr);
+      localStorage.setItem("info",Number(localStorage.getItem("info"))+Number(this.value))
+      this.info = localStorage.getItem("info")
     },
     getData() {
-      this.detailObj = this.$route.query.data;
+      this.detailObj = JSON.parse(localStorage.getItem('obj'))
     },
     goBack() {
       this.$router.go(-1);

@@ -24,26 +24,30 @@ export default {
         areaList,
         searchResult: [],
         id:'1',
-        newarr:this.$route.query.newarr
+        newarr:JSON.parse(localStorage.getItem("address"))
         }
+    },
+    mounted(){
     },
     methods: {
         back(){
             history.back()
         },
-        onSave(content) {
+        onSave(content) {           
             this.newarr.push(
                     {
-                        id:this.id,
+                        id:(this.newarr.length+1)+'',
                         name:content.name,
                         tel:content.tel,
                         address:`${content.province}、${content.city}、${content.county}:${content.addressDetail}`
                     }
                 )
+            localStorage.setItem("NewAddress",JSON.stringify(this.newarr))
+
             this.$router.push({
                 path:"/address",
                 query:{
-                    addressArr:this.newarr,
+                    // addressArr:this.newarr,
                     id:this.id
                 }
             })   

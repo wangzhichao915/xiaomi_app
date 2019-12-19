@@ -66,7 +66,8 @@ export default {
         });
     },
     goDetail(item){
-        this.$router.push({path:'/detail',query:{data:item}})
+        this.$router.push('/detail')
+        localStorage.setItem('obj',JSON.stringify(item))
     }
   }
 };
