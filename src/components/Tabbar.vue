@@ -1,5 +1,5 @@
 <template>
-    <div style="margin-bottom:1rem;">
+    <div style="margin-bottom:1rem;" class="tabbar">
         <van-tabbar v-model="active">
             <van-tabbar-item :icon="item.icon" v-for="(item,i) in pathArr" :key='i' @click='goPage(i)'>{{item.txt}}</van-tabbar-item>
         </van-tabbar>
@@ -40,6 +40,6 @@ export default {
 .van-tabbar{
     width: 100%;
     height: 1rem;
-    background: #f7f7f7;
+    background: #fff;
 }
 </style>

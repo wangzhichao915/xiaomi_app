@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="top">
         <van-nav-bar
             :title="text"
             left-text="返回"
@@ -14,7 +14,8 @@ export default {
     props:["text"],
      methods: {
         onClickLeft() {
-        Toast('返回');
+            // history.back()
+            this.$router.go(-1)
         }
     }
 }
