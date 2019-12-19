@@ -36,60 +36,63 @@
     </div>
     <van-goods-action>
       <van-goods-action-icon icon="wap-home-o" text="首页" @click="goHome" />
-      <van-goods-action-icon icon="cart-o" text="购物车" :info="info" @click='goShopp'/>
+      <van-goods-action-icon icon="cart-o" text="购物车" :info="info" @click="goShopp" />
       <van-goods-action-button type="warning" text="加入购物车" @click="flag=true" />
     </van-goods-action>
-    <div class="detailbox" v-show="flag">
-      <div class="detaillist">
-        <van-icon size="0.3rem" name="cross" @click="flag = false" />
-        <div class="msg">
-          <img :src="detailObj.edition[seen].color[seen1].img" alt />
-          <div class="right">
-            <p>￥{{detailObj.edition[seen].edition_price}}</p>
-            <ul>
-              <li>{{detailObj.name}}</li>
-              <li>{{detailObj.edition[seen].Memory}}</li>
-              <li>{{detailObj.edition[seen].color[seen1].color_list}}</li>
+    <transition enter-active-class="animated slideInUp" leave-active-class="animated bounce">
+      <div class="detailbox" v-show="flag">
+        <div class="detaillist">
+          <van-icon size="0.3rem" name="cross" @click="flag = false" />
+          <div class="msg">
+            <img :src="detailObj.edition[seen].color[seen1].img" alt />
+            <div class="right">
+              <p>￥{{detailObj.edition[seen].edition_price}}</p>
+              <ul>
+                <li>{{detailObj.name}}</li>
+                <li>{{detailObj.edition[seen].Memory}}</li>
+                <li>{{detailObj.edition[seen].color[seen1].color_list}}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="edition">
+            <header>版本</header>
+            <ul
+              v-for="(item,i) in detailObj.edition"
+              :key="i"
+              @click="selectEdition(i)"
+              :class="{active:seen == i}"
+            >
+              <li>{{item.Memory}}</li>
+              <li>{{item.edition_price}}</li>
             </ul>
           </div>
+          <div class="color">
+            <header>颜色</header>
+            <ul>
+              <li
+                @click="selectColor(i)"
+                v-for="(item,i) in editionObj.color"
+                :key="i"
+                :class="{active1:seen1 == i}"
+              >{{item.color_list}}</li>
+            </ul>
+          </div>
+          <div class="num">
+            <p>购买数量</p>
+            <van-stepper v-model="value" />
+          </div>
+          <van-button round type="warning" size="large" @click="shopp">加入购物车</van-button>
         </div>
-        <div class="edition">
-          <header>版本</header>
-          <ul
-            v-for="(item,i) in detailObj.edition"
-            :key="i"
-            @click="selectEdition(i)"
-            :class="{active:seen == i}"
-          >
-            <li>{{item.Memory}}</li>
-            <li>{{item.edition_price}}</li>
-          </ul>
-        </div>
-        <div class="color">
-          <header>颜色</header>
-          <ul>
-            <li
-              @click="selectColor(i)"
-              v-for="(item,i) in editionObj.color"
-              :key="i"
-              :class="{active1:seen1 == i}"
-            >{{item.color_list}}</li>
-          </ul>
-        </div>
-        <div class="num">
-          <p>购买数量</p>
-          <van-stepper v-model="value" />
-        </div>
-        <van-button round type="warning" size="large" @click="shopp">加入购物车</van-button>
       </div>
-    </div>
+    </transition>
+    
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      info:localStorage.getItem("info"),
+      info: localStorage.getItem("info"),
       detailObj: {},
       flag: false,
       value: 1,
@@ -106,22 +109,49 @@ export default {
   methods: {
     //提交购物车
     shopp() {
-      var shoppArr = {};
-      shoppArr.name = this.detailObj.name;
-      shoppArr.price = this.detailObj.edition[this.seen].edition_price;
-      shoppArr.type = this.detailObj.edition[this.seen].Memory;
-      shoppArr.img = this.detailObj.edition[this.seen].color[this.seen1].img;
-      shoppArr.color = this.detailObj.edition[this.seen].color[
-        this.seen1
-      ].color_list;
-      shoppArr.num = this.value;
-      this.arr.push(shoppArr);
-      localStorage.setItem("key", JSON.stringify(this.arr));
-      localStorage.setItem("info",Number(localStorage.getItem("info"))+Number(this.value))
-      this.info = localStorage.getItem("info")
+      var shoppArr = {
+        name: this.detailObj.name,
+        price: this.detailObj.edition[this.seen].edition_price,
+        type: this.detailObj.edition[this.seen].Memory,
+        img: this.detailObj.edition[this.seen].color[this.seen1].img,
+        color: this.detailObj.edition[this.seen].color[this.seen1].color_list,
+        num: this.value
+      };
+      if (this.arr.length == 0) {
+        this.arr.push(shoppArr);
+        localStorage.setItem("key", JSON.stringify(this.arr));
+        localStorage.setItem(
+          "info",
+          Number(localStorage.getItem("info")) + Number(this.value)
+        );
+        this.info = localStorage.getItem("info");
+      } else {
+        for (let i = 0; i < this.arr.length; i++) {
+          if (
+            this.arr[i].name == shoppArr.name &&
+            this.arr[i].price == shoppArr.price
+          ) {
+            this.arr[i].num += shoppArr.num;
+            localStorage.setItem("key", JSON.stringify(this.arr));
+            localStorage.setItem(
+              "info",
+              Number(localStorage.getItem("info")) + Number(this.value)
+            );
+            this.info = localStorage.getItem("info");
+            return;
+          }
+        }
+        this.arr.push(shoppArr);
+        localStorage.setItem("key", JSON.stringify(this.arr));
+        localStorage.setItem(
+          "info",
+          Number(localStorage.getItem("info")) + Number(this.value)
+        );
+        this.info = localStorage.getItem("info");
+      }
     },
     getData() {
-      this.detailObj = JSON.parse(localStorage.getItem('obj'))
+      this.detailObj = JSON.parse(localStorage.getItem("obj"));
     },
     goBack() {
       this.$router.go(-1);
@@ -129,8 +159,8 @@ export default {
     goHome() {
       this.$router.push("/home");
     },
-    goShopp(){
-      this.$router.push('/shopp')
+    goShopp() {
+      this.$router.push("/shopp");
     },
     selectEdition(i) {
       this.editionObj = this.detailObj.edition[i];

@@ -95,6 +95,10 @@ export default {
   methods: {
     del(i) {
       this.shoppArr.splice(i, 1);
+      if (this.shoppArr.length == 0) {
+      this.flag = false;
+      localStorage.removeItem('info')
+    } 
       localStorage.setItem("key", JSON.stringify(this.shoppArr));
     },
     goDetail(item) {

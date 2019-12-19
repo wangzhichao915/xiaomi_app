@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home">
     <header>
       <div class="left"></div>
       <input type="text" />
@@ -54,6 +54,7 @@ export default {
       this.$axios
         .get("https://shiyaming1994.github.io/mi/static/homeGoods.json?page=1")
         .then(res => {
+          console.log(res)
           this.sectionArr = res.data;
         });
     },

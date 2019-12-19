@@ -12,6 +12,8 @@ Vue.use(Vant);
 import './assets/css/reset.css'
 import './assets/js/rem.js'
 
+import 'animate.css'
+
 import { AddressEdit } from 'vant';
 
 Vue.use(AddressEdit);

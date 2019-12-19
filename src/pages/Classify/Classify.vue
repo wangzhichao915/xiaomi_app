@@ -54,7 +54,8 @@ export default {
         "出行",
         "智能",
         "灯具",
-        "家电"
+        "家电",
+        ""
       ],
       currentIndex: 0, //当前显示的下标
       listHeight: [],
@@ -136,7 +137,6 @@ export default {
         height += item.clientHeight;
         this.listHeight.push(height);
       }
-      console.log(this.listHeight);
     },
 
     //  点击左侧滚动
