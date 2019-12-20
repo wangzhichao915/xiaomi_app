@@ -20,13 +20,14 @@ import areaList from "../../assets/js/area.js";
 export default {
   data() {
     return {
-      areaList,
+      areaList:areaList,
       flag: true,
       newarr: JSON.parse(localStorage.getItem("NewAddress")) || [],
-      editObj: JSON.parse(localStorage.getItem("NewAddress"))[
-        this.$route.query.index
-      ]
+      editObj: {}
     };
+  },
+  mounted(){
+    this.editObj=JSON.parse(localStorage.getItem("NewAddress"))[this.$route.query.index]
   },
   methods: {
     onClickLeft() {
