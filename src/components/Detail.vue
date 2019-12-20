@@ -111,10 +111,9 @@ export default {
     shopp() {
       var shoppArr = {
         name: this.detailObj.name,
-        price: this.detailObj.edition[this.seen].edition_price,
-        type: this.detailObj.edition[this.seen].Memory,
+        type: this.detailObj.edition[this.seen].edition_price + "/" + this.detailObj.edition[this.seen].Memory + "/" + this.detailObj.edition[this.seen].color[this.seen1].color_list,
         img: this.detailObj.edition[this.seen].color[this.seen1].img,
-        color: this.detailObj.edition[this.seen].color[this.seen1].color_list,
+        price:this.detailObj.edition[this.seen].edition_price,
         num: this.value
       };
       if (this.arr.length == 0) {
@@ -129,7 +128,7 @@ export default {
         for (let i = 0; i < this.arr.length; i++) {
           if (
             this.arr[i].name == shoppArr.name &&
-            this.arr[i].price == shoppArr.price
+            this.arr[i].type == shoppArr.type
           ) {
             this.arr[i].num += shoppArr.num;
             localStorage.setItem("key", JSON.stringify(this.arr));

@@ -1,6 +1,8 @@
 <template>
   <div class="classify">
-    <van-nav-bar title="分类" left-text="返回" left-arrow @click-left="onClickLeft" />
+    <van-nav-bar title="分类" left-text="返回" fixed left-arrow @click-left="onClickLeft">
+      <van-icon name="search" slot="right" />
+    </van-nav-bar>
     <div class="better_scroll">
       <div class="boxqu">
         <div class="leftwrap" ref="navwrap">
@@ -34,14 +36,10 @@
 </template>
  
 <script>
-import Top from "../../components/Top";
 import BScroll from "better-scroll";
 
 export default {
   //   name: "better_scroll",
-  components: {
-    Top
-  },
   data() {
     return {
       listArr: [
@@ -86,8 +84,8 @@ export default {
       this.$router.push("/detail");
       localStorage.setItem("obj", JSON.stringify(item));
     },
-    onClickLeft() {
-      history.back();
+    onClickLeft(){
+      this.$router.go(-1)
     },
     //新建滚动实例  并监听右侧滚动的高度
     _initScroll() {
@@ -180,6 +178,9 @@ export default {
 * {
   margin: 0;
   padding: 0;
+}
+.better_scroll{
+  margin-top: 1rem;
 }
 .boxqu {
   display: flex;

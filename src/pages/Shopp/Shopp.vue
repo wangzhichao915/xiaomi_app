@@ -1,6 +1,11 @@
 <template>
   <div>
-    <top text="购物车"></top>
+    <header>
+      <van-nav-bar title="购物车" left-text="返回" fixed left-arrow @click-left="onClickLeft">
+        <van-icon name="search" slot="right" />
+      </van-nav-bar>
+    </header>
+
     <div class="title">
       <h2>
         登录后享受更多优惠
@@ -15,7 +20,7 @@
     </div>
     <van-card
       v-show="flag"
-      :desc="item.price"
+      :desc="item.type"
       :title="item.name"
       :thumb="item.img"
       v-for="(item,index) in shoppArr"
@@ -54,13 +59,12 @@
   </div>
 </template>
 <script>
-import Top from "../../components/Top";
 export default {
   data() {
     return {
       listArr: [],
-      shoppArr:JSON.parse(localStorage.getItem("key")) || [],
-      flag: false,
+      shoppArr: JSON.parse(localStorage.getItem("key")) || [],
+      flag: false
     };
   },
   mounted() {
@@ -76,29 +80,30 @@ export default {
       this.flag = false;
     }
   },
-  components: {
-    Top
-  },
   computed: {
     money() {
       return this.shoppArr.reduce((pre, next) => {
-        return pre + next.price * next.num;
+        return pre + Number(next.price * next.num);
       }, 0);
     },
     count() {
       return this.shoppArr.reduce((pre, next) => {
-        localStorage.setItem("info",pre + next.num)
-        return pre + next.num;
+        localStorage.setItem("info", pre + next.num);
+        return pre + Number(next.num);
       }, 0);
-    },
+    }
   },
   methods: {
+    onClickLeft() {
+      // history.back()
+      this.$router.go(-1);
+    },
     del(i) {
       this.shoppArr.splice(i, 1);
       if (this.shoppArr.length == 0) {
-      this.flag = false;
-      localStorage.removeItem('info')
-    } 
+        this.flag = false;
+        localStorage.removeItem("info");
+      }
       localStorage.setItem("key", JSON.stringify(this.shoppArr));
     },
     goDetail(item) {
@@ -113,6 +118,7 @@ export default {
   width: 100%;
   height: 1.1rem;
   background: #fff;
+  margin-top: 1rem;
   h2 {
     margin-left: 0.3rem;
     color: #000;
@@ -273,10 +279,10 @@ export default {
 .slot {
   margin-top: 0.1rem;
   position: relative;
-}
-.van-icon {
-  font-size: 24px;
-  position: absolute;
-  right: 0.2rem;
+  .van-icon {
+    font-size: 24px;
+    position: absolute;
+    right: 0.2rem;
+  }
 }
 </style>
