@@ -31,7 +31,7 @@ export default {
       goPage(i){
           this.$router.push(this.pathArr[i].path)
       }
-  }
+  },
 }
 </script>
 
