@@ -20,14 +20,18 @@ import areaList from "../../assets/js/area.js";
 export default {
   data() {
     return {
-      areaList:areaList,
+      areaList: areaList,
       flag: true,
       newarr: JSON.parse(localStorage.getItem("NewAddress")) || [],
       editObj: {}
     };
   },
-  mounted(){
-    this.editObj=JSON.parse(localStorage.getItem("NewAddress"))[this.$route.query.index]
+  mounted() {
+    this.$route.query.seen == 1
+      ? {}
+      : (this.editObj = JSON.parse(localStorage.getItem("NewAddress"))[
+          this.$route.query.index
+        ]);
   },
   methods: {
     onClickLeft() {

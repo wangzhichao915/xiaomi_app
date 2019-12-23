@@ -1,7 +1,10 @@
 <template>
     <div style="margin-bottom:1rem;" class="tabbar">
         <van-tabbar v-model="active">
-            <van-tabbar-item :icon="item.icon" v-for="(item,i) in pathArr" :key='i' @click='goPage(i)'>{{item.txt}}</van-tabbar-item>
+            <van-tabbar-item icon="wap-home-o" to="/home">首页</van-tabbar-item>
+            <van-tabbar-item icon="apps-o" to="/classify">分类</van-tabbar-item>
+            <van-tabbar-item icon="shopping-cart-o" to="/shopp" :info=info>购物车</van-tabbar-item>
+            <van-tabbar-item icon="manager-o" to="/mine">个人</van-tabbar-item>
         </van-tabbar>
     </div>
 </template>
@@ -11,26 +14,8 @@ export default {
     data() {
         return {
             active: 0,
-            pathArr:[
-                {
-                    path:'/home',icon:'wap-home-o',txt:'首页'
-                },
-                {
-                    path:'/classify',icon:'apps-o',txt:'分类'
-                },
-                {
-                    path:'/shopp',icon:'shopping-cart-o',txt:'购物车'
-                },
-                {
-                    path:'/mine',icon:'manager-o',txt:'个人'
-                },
-            ]
+            info: localStorage.getItem("info"),
         }
-  },
-  methods:{
-      goPage(i){
-          this.$router.push(this.pathArr[i].path)
-      }
   },
 }
 </script>
